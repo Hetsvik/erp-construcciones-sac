@@ -16,7 +16,7 @@ async def login(req: LoginRequest, db: Any = Depends(get_db)):
         query = """
             SELECT a.ID_Administrador as id, e.Nombre_Completo as nombre, a.ID_Rol as rol
             FROM Administrador a
-            JOIN Empleados e ON a.ID_Empleado = e.ID_Empleado
+            JOIN Empleados e ON a.ID_Empleado    = e.ID_Empleado
             WHERE a.Codigo_Administrador = ? AND a.PIN_Acceso = ?
         """
     else:
