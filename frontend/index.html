@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Control de asistencia y actividades corporativas.">
     <title>Ingresar | Control laboral</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <!-- Ruta corregida, relativa al directorio frontend -->
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body class="auth-page">
     <canvas id="gold-wave-canvas"></canvas>
@@ -21,14 +22,15 @@
           <div class="form-field"><label for="login-role">Perfil</label><select id="login-role" name="role"><option value="employee">Empleado</option><option value="admin">Administrador</option></select></div>
           <div class="form-field"><label for="login-code">Código de usuario</label><input id="login-code" name="code" autocomplete="username" placeholder="Ej. EM0038" required></div>
           <div class="form-field"><label for="login-pin">Contraseña o PIN</label><input id="login-pin" name="pin" type="password" autocomplete="current-password" inputmode="numeric" placeholder="••••" required></div>
-          <p id="login-message" class="form-message" aria-live="polite"></p><button class="button button-primary button-full" type="submit">Ingresar</button>
+          <p id="login-message" class="form-message" aria-live="polite" style="display: none;"></p>
+          <button class="button button-primary button-full" type="submit">Ingresar</button>
           <p class="auth-note">Versión estática de demostración. Los datos se guardan únicamente en este navegador.</p>
         </form>
       </section>
     </main>
 
-  <!-- Script de autenticación (único) -->
-    <script type="module" src="backend/auth/login.py"></script>
+  <!-- Script de autenticación (CORREGIDO) -->
+    <script src="js/auth.js"></script>
 
     <!-- SCRIPT DEL FONDO ANIMADO DE ONDAS DORADAS (COMPLETO) -->
     <script>
@@ -102,10 +104,3 @@
     </script>
   </body>
 </html>
-
-
-/* 
-  Este código HTML representa una página de inicio de sesión para una plataforma de control laboral. 
-  Incluye un formulario de autenticación con campos para seleccionar el perfil del usuario, ingresar un código de usuario y una contraseña o PIN. 
-  Además, tiene un fondo animado de ondas doradas que se dibuja en un canvas utilizando JavaScript.
-*/
