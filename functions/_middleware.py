@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from .api.tasks import comments
+
 app = FastAPI(title="API Sistema de Gestión Empresarial")
 
 # Dependencia para inyectar la conexión de la base de datos D1
@@ -14,10 +16,10 @@ async def add_cloudflare_env(request: Request, call_next):
     response = await call_next(request)
     return response
 
-from .auth import login
-from .attendance import index as attendance
-from .tasks import index as tasks, comments
-from .reports import index as reports
+from .api.auth import login
+from .api.attendance import index as attendance
+from .api.tasks import index as tasks
+from .api.reports import index as reports
 
 app.include_router(login.router)
 app.include_router(attendance.router)

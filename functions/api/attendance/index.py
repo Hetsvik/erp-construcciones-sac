@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import Any
 from datetime import datetime
-from .._middleware import get_db
+from ..._middleware import get_db
 
 router = APIRouter()
 
