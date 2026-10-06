@@ -4,330 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión - Panel Principal</title>
-    <!-- Tailwind CSS & FontAwesome CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Hoja de Estilos CSS Externa -->
-    <link rel="stylesheet" href="css/main.css">
+    <title>Inicio - Dashboard</title>
+    <link rel="stylesheet" href="css/inicio.css">
 </head>
 
 <body>
-
-    <!-- Canvas de Ondas Doradas de Fondo -->
+    <!-- Fondo animado en capa base -->
     <canvas id="gold-wave-canvas"></canvas>
 
-    <div class="app-shell">
-
-        <!-- Menú Lateral Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="user-profile-header">
-                <div class="avatar-large">
-                    <i class="fa-solid fa-user-astronaut text-3xl text-[#d4af37]"></i>
+    <div class="app-layout">
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-icon">
+                    <!-- Icono de usuario -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                 </div>
-                <strong class="text-white text-base font-bold">Bienvenido Rodrigo</strong>
-                <span class="text-xs text-amber-200/70 font-medium mt-0.5">Administrador</span>
+                <p class="greeting">Bienvenido Rodrigo</p>
             </div>
 
-            <nav class="sidebar-nav">
-                <button class="nav-link is-active" onclick="switchView('inicio', this)">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Inicio</span>
-                </button>
-
-                <button class="nav-link" onclick="switchView('anuncios', this)">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>Anuncios</span>
-                </button>
-
-                <button class="nav-link" onclick="switchView('calendario', this)">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Calendario</span>
-                </button>
-
-                <button class="nav-link" onclick="switchView('cuenta', this)">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <span>Cuenta</span>
-                </button>
-
-                <button class="nav-link" onclick="switchView('configuracion', this)">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Configuración</span>
-                </button>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link is-active">Inicio</a>
+                <a href="#" class="nav-link">Anuncios</a>
+                <a href="#" class="nav-link">Calendario</a>
+                <a href="#" class="nav-link">Cuenta</a>
+                <a href="#" class="nav-link">Configuracion</a>
+                <a href="#" class="nav-link">Cerrar Sesion</a>
             </nav>
-
-            <button class="nav-link logout-link mt-auto" onclick="showToast('Sesión cerrada correctamente')">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Cerrar Sesión</span>
-            </button>
         </aside>
 
-        <!-- Vista Principal -->
-        <main class="app-view">
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <header class="top-header">
+                <h1 class="page-title">INICIO</h1>
 
-            <!-- Topbar / Barra Superior -->
-            <header class="topbar">
-                <div class="flex items-center">
-                    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <h1 class="topbar-title" id="view-title">INICIO</h1>
-                </div>
-
-                <!-- Botón de Notificaciones -->
+                <!-- Campana de notificaciones -->
                 <div class="notification-wrapper">
-                    <button class="bell-btn" onclick="toggleNotifications()" aria-label="Notificaciones">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="bell-badge"></span>
+                    <button class="bell-button" id="notification-bell">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
                     </button>
 
-                    <!-- Popover Emergente de Notificaciones -->
-                    <div class="notifications-popup" id="notifications-popup">
-                        <div class="notif-header">
-                            <span class="font-bold text-white text-sm">Notificaciones</span>
-                            <span class="text-xs text-amber-400 cursor-pointer hover:underline"
-                                onclick="clearNotifs()">Marcar leídas</span>
-                        </div>
-                        <div id="notif-list">
-                            <div class="notif-item">
-                                <strong>Nueva tarea asignada</strong>
-                                <p>Revisión de reportes financieros del Q3.</p>
-                                <time>Hace 10 min</time>
-                            </div>
-                            <div class="notif-item">
-                                <strong>Marcado de Asistencia</strong>
-                                <p>Entrada registrada con éxito a las 08:30 AM.</p>
-                                <time>Hace 2 horas</time>
-                            </div>
-                            <div class="notif-item">
-                                <strong>Anuncio del Sistema</strong>
-                                <p>Mantenimiento programado hoy a las 22:00 PM.</p>
-                                <time>Hace 5 horas</time>
-                            </div>
+                    <!-- Ventana emergente (oculta por defecto) -->
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="dropdown-header">Notificaciones</div>
+                        <div class="dropdown-body">
+                            <p class="empty-notif">No tienes notificaciones nuevas.</p>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <!-- Contenedor Dinámico de Vistas -->
-            <div class="content">
-
-                <!-- VISTA INICIO (Wireframe) -->
-                <section id="view-inicio" class="view-panel active">
-                    <div class="dashboard-grid">
-                        <div class="action-card" onclick="navigateToSection('asistencia')">
-                            <div class="wireframe-icon-box">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                            </div>
-                            <span>Asistencia</span>
-                        </div>
-
-                        <div class="action-card" onclick="navigateToSection('tareas')">
-                            <div class="wireframe-icon-box">
-                                <i class="fa-solid fa-list-check"></i>
-                            </div>
-                            <span>Tareas</span>
-                        </div>
-
-                        <div class="action-card" onclick="navigateToSection('reportes')">
-                            <div class="wireframe-icon-box">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <span>Reportes</span>
-                        </div>
+            <!-- Botones centrales de la imagen -->
+            <div class="action-boxes">
+                <button class="action-box">
+                    <div class="box-placeholder">
+                        <img src="https://api.iconify.design/lucide:clipboard-check.svg?color=%23d4af37"
+                            alt="Icono Asistencia" class="action-icon">
                     </div>
-                </section>
+                    <span>Asistencia</span>
+                </button>
 
-                <!-- VISTA ASISTENCIA -->
-                <section id="view-asistencia" class="view-panel">
-                    <div class="panel mb-6">
-                        <div class="flex justify-between items-center flex-wrap gap-4 mb-4">
-                            <div>
-                                <span class="eyebrow">Módulo de Asistencia</span>
-                                <h2 class="text-xl font-bold text-white mt-1">Registro de Jornada</h2>
-                            </div>
-                            <div class="flex gap-3">
-                                <button class="button button-primary"
-                                    onclick="showToast('Entrada registrada exitosamente')">
-                                    <i class="fa-solid fa-right-to-bracket"></i> Marcar Entrada
-                                </button>
-                                <button class="button button-secondary" onclick="showToast('Salida registrada')">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Marcar Salida
-                                </button>
-                            </div>
-                        </div>
-                        <p class="text-sm text-zinc-400">Estado actual: <span class="text-emerald-400 font-semibold">●
-                                Activo (08:30 AM)</span></p>
+                <button class="action-box">
+                    <div class="box-placeholder">
+                        <img src="https://api.iconify.design/lucide:check-square.svg?color=%23d4af37" alt="Icono Tareas"
+                            class="action-icon">
                     </div>
+                    <span>Tareas</span>
+                </button>
 
-                    <div class="panel">
-                        <h3 class="text-lg font-bold mb-4">Historial Reciente</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-zinc-300">
-                                <thead class="border-b border-zinc-800 text-xs text-zinc-400 uppercase">
-                                    <tr>
-                                        <th class="py-3 px-2">Fecha</th>
-                                        <th class="py-3 px-2">Entrada</th>
-                                        <th class="py-3 px-2">Salida</th>
-                                        <th class="py-3 px-2">Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-zinc-800/60">
-                                    <tr>
-                                        <td class="py-3 px-2">Hoy, 6 Oct 2026</td>
-                                        <td class="py-3 px-2">08:30 AM</td>
-                                        <td class="py-3 px-2">--:--</td>
-                                        <td class="py-3 px-2"><span
-                                                class="px-2 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">En
-                                                Curso</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 px-2">Ayer, 5 Oct 2026</td>
-                                        <td class="py-3 px-2">08:28 AM</td>
-                                        <td class="py-3 px-2">05:30 PM</td>
-                                        <td class="py-3 px-2"><span
-                                                class="px-2 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Completado</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <button class="action-box">
+                    <div class="box-placeholder">
+                        <img src="https://api.iconify.design/lucide:bar-chart-2.svg?color=%23d4af37"
+                            alt="Icono Reportes" class="action-icon">
                     </div>
-                </section>
-
-                <!-- VISTA TAREAS -->
-                <section id="view-tareas" class="view-panel">
-                    <div class="panel mb-6 flex justify-between items-center">
-                        <div>
-                            <span class="eyebrow">Gestión de Proyectos</span>
-                            <h2 class="text-xl font-bold text-white mt-1">Mis Tareas Pendientes</h2>
-                        </div>
-                        <button class="button button-primary" onclick="showToast('Formulario de nueva tarea')">
-                            <i class="fa-solid fa-plus"></i> Nueva Tarea
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="panel flex flex-col justify-between">
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                    <span
-                                        class="px-2 py-0.5 text-xs font-bold rounded bg-red-500/20 text-red-400 border border-red-500/30">Alta
-                                        Prioridad</span>
-                                    <span class="text-xs text-zinc-500">Hoy</span>
-                                </div>
-                                <h3 class="font-bold text-white text-base mb-1">Optimización del Servidor</h3>
-                                <p class="text-xs text-zinc-400">Revisar latencia en las respuestas API y depurar
-                                    scripts.</p>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-zinc-800/80 flex justify-between items-center">
-                                <span class="text-xs text-zinc-500">Asignado a: Rodrigo</span>
-                                <span class="text-xs text-amber-400 font-semibold">En progreso</span>
-                            </div>
-                        </div>
-
-                        <div class="panel flex flex-col justify-between">
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                    <span
-                                        class="px-2 py-0.5 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">Media
-                                        Prioridad</span>
-                                    <span class="text-xs text-zinc-500">Mañana</span>
-                                </div>
-                                <h3 class="font-bold text-white text-base mb-1">Diseño de UI Dashboard</h3>
-                                <p class="text-xs text-zinc-400">Finalizar maquetación del esquema dorado con el canvas
-                                    animado.</p>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-zinc-800/80 flex justify-between items-center">
-                                <span class="text-xs text-zinc-500">Asignado a: Rodrigo</span>
-                                <span class="text-xs text-emerald-400 font-semibold">Pendiente</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- VISTA REPORTES -->
-                <section id="view-reportes" class="view-panel">
-                    <div class="panel mb-6">
-                        <span class="eyebrow">Analítica y Métricas</span>
-                        <h2 class="text-xl font-bold text-white mt-1">Reportes Semanales</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <div class="panel text-center">
-                            <span class="text-xs text-zinc-400">Horas Trabajadas</span>
-                            <strong class="block text-2xl font-bold text-amber-400 mt-1">38.5 hrs</strong>
-                        </div>
-                        <div class="panel text-center">
-                            <span class="text-xs text-zinc-400">Tareas Completadas</span>
-                            <strong class="block text-2xl font-bold text-emerald-400 mt-1">14</strong>
-                        </div>
-                        <div class="panel text-center">
-                            <span class="text-xs text-zinc-400">Puntualidad</span>
-                            <strong class="block text-2xl font-bold text-amber-300 mt-1">98%</strong>
-                        </div>
-                        <div class="panel text-center">
-                            <span class="text-xs text-zinc-400">Rendimiento</span>
-                            <strong class="block text-2xl font-bold text-amber-400 mt-1">Excelente</strong>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECCIONES SECUNDARIAS -->
-                <section id="view-anuncios" class="view-panel">
-                    <div class="panel">
-                        <h2 class="text-xl font-bold mb-3"><i
-                                class="fa-solid fa-bullhorn text-amber-400 mr-2"></i>Anuncios Generales</h2>
-                        <div class="p-4 bg-zinc-900/60 rounded-xl border border-zinc-800 mb-3">
-                            <h3 class="font-bold text-amber-300">Reunión Trimestral de Equipo</h3>
-                            <p class="text-sm text-zinc-400 mt-1">Estimados miembros del equipo, este viernes a las
-                                10:00 AM tendremos la reunión general de avances.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-calendario" class="view-panel">
-                    <div class="panel text-center py-12">
-                        <i class="fa-solid fa-calendar-days text-4xl text-amber-400 mb-3"></i>
-                        <h2 class="text-xl font-bold">Calendario de Eventos</h2>
-                        <p class="text-sm text-zinc-400 mt-1">No hay eventos agendados para el día de hoy.</p>
-                    </div>
-                </section>
-
-                <section id="view-cuenta" class="view-panel">
-                    <div class="panel max-w-lg">
-                        <h2 class="text-xl font-bold mb-4">Perfil de Usuario</h2>
-                        <div class="space-y-3 text-sm">
-                            <div><strong class="text-zinc-400">Nombre:</strong> <span class="text-white">Rodrigo</span>
-                            </div>
-                            <div><strong class="text-zinc-400">Correo:</strong> <span
-                                    class="text-white">rodrigo@empresa.com</span></div>
-                            <div><strong class="text-zinc-400">Rol:</strong> <span
-                                    class="text-amber-400">Administrador</span></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-configuracion" class="view-panel">
-                    <div class="panel max-w-lg">
-                        <h2 class="text-xl font-bold mb-4">Configuración del Sistema</h2>
-                        <div class="flex items-center justify-between py-2 border-b border-zinc-800">
-                            <span class="text-sm">Notificaciones de Correo</span>
-                            <input type="checkbox" checked class="accent-amber-400">
-                        </div>
-                        <div class="flex items-center justify-between py-2 border-b border-zinc-800">
-                            <span class="text-sm">Modo Oscuro Avanzado</span>
-                            <input type="checkbox" checked class="accent-amber-400">
-                        </div>
-                    </div>
-                </section>
-
+                    <span>Reportes</span>
+                </button>
             </div>
         </main>
     </div>
 
-    <!-- Archivo JavaScript Externo -->
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
