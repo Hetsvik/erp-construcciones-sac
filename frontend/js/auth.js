@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('usuario_actual', JSON.stringify(datos.user));
 
                 if (esAdmin) {
-                    window.location.href = '/dashboard-admin.html'; // Cambia esta ruta a la de tu dashboard real
+                    window.location.href = '/inicio.html'; // Cambia esta ruta a la de tu dashboard real
                 } else {
                     window.location.href = '/dashboard-empleado.html'; // Cambia esta ruta a la de tu dashboard real
                 }
